@@ -77,11 +77,34 @@ config DRM_XLNX_DSI
 	select BACKLIGHT_CLASS_DEVICE
 	help
 	  DRM driver for Xilinx MIPI-DSI.
+	  
+config DRM_DIGILENT_HDMI
+	tristate "Digilent DRM Driver"
+	depends on DRM_XLNX
+	help
+	  DRM driver for Digilent HDMI implementation.
+
+config DRM_AX_LCD_ENCODER
+	tristate "ALINX LCD DRM Encoder Driver"
+	depends on DRM_XLNX
+	help
+	  DRM slave encoder for alinx heijin LCD.     
+
+config DRM_AX_9134_ENCODER
+	tristate "ALINX 9134 Encoder Driver"
+	depends on DRM_XLNX
+	help
+	  9134 encoder.	 
+	 
+config DRM_AX_7511_ENCODER
+	tristate "ALINX 7511 Encoder Driver"
+	depends on DRM_XLNX
+	help
+	  ADV7511 encoder.
 
 config DRM_XLNX_HDMITX
 	tristate "Xilinx DRM HDMI Subsystem Driver"
 	depends on DRM_XLNX
-	select DRM_XLNX_HDCP
 	help
 	  DRM driver for Xilinx HDMI Tx Subsystem for FPGA. Choose
 	  this option if you have a FPGA display pipeline that includes
@@ -151,4 +174,4 @@ config DRM_XLNX_HDCP
 	  Xilinx display drivers. It handles the HDCP authentication.
 	  Choose this option if you have a FPGA display pipeline using
 	  Xilinx FPGA's in IP. This driver provides the kernel mode
-	  setting functionalities for the IP.
+	  setting functionalities for the IP.	  

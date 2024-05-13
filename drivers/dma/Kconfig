@@ -817,6 +817,12 @@ config XILINX_DMATEST
 	  Simple DMA test client. Say N unless you're debugging a
 	  DMA Device driver.
 
+config ALINX_ADC_DMA
+	tristate "ALINX ADC DMA Test client for AXI DMA"
+	depends on XILINX_DMA
+	help
+	  ALINX ADC DMA  client. 
+
 config XILINX_VDMATEST
 	tristate "DMA Test client for VDMA"
 	depends on XILINX_DMA

@@ -10,6 +10,7 @@
 #ifndef __ASSEMBLY__
 #include <asm/barrier.h>
 #include <asm/thread_info.h>
+#include <linux/thread_info.h>
 #endif
 
 /*

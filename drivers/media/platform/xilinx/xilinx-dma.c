@@ -1005,7 +1005,38 @@ xvip_dma_set_format(struct file *file, void *fh, struct v4l2_format *format)
 
 	dma->fmtinfo = info;
 
+	struct v4l2_subdev_format fmt;
+	struct v4l2_subdev *subdev;
+
+	subdev = xvip_dma_remote_subdev(&dma->pad, &fmt.pad);
+	if (subdev == NULL)
+	{
+		printk(KERN_WARNING "##############xvip_dma_set_format get subdev fail##############\n");
+		return 0;
+	}
+
+	fmt.which = V4L2_SUBDEV_FORMAT_ACTIVE;
+	fmt.format.width = format->fmt.pix.width;
+	fmt.format.height = format->fmt.pix.height;
+	fmt.format.colorspace = format->fmt.pix.colorspace;
+	v4l2_subdev_call(subdev, pad, set_fmt, NULL, &fmt);
+
 	return 0;
+}
+
+static int camera_g_input(struct file *file, void *priv, unsigned int *i)
+{
+    *i = 0;
+
+    return 0;
+}
+
+static int camera_s_input(struct file *file, void *priv, unsigned int i)
+{
+    if (i > 0)
+        return -EINVAL;
+
+    return 0;
 }
 
 static int
@@ -1135,8 +1166,8 @@ static const struct v4l2_ioctl_ops xvip_dma_ioctl_ops = {
 	.vidioc_streamon		= vb2_ioctl_streamon,
 	.vidioc_streamoff		= vb2_ioctl_streamoff,
 	.vidioc_enum_input	= &xvip_dma_enum_input,
-	.vidioc_g_input		= &xvip_dma_get_input,
-	.vidioc_s_input		= &xvip_dma_set_input,
+	.vidioc_g_input                 = camera_g_input,
+	.vidioc_s_input                 = camera_s_input,
 };
 
 /* -----------------------------------------------------------------------------
